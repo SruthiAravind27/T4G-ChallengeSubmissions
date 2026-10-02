@@ -9,7 +9,7 @@ against that challenge's graded test cases and updates the leaderboard.
 ```
 teams/<challenge>/_template/skill.md    # copy this to start
 teams/<challenge>/<your-team>/skill.md  # your submission
-test_cases/<challenge>/practice.yaml    # practice cases you can test against
+test_cases/<challenge>/practice_batch.yaml  # practice cases you can test against
 graders/                                # the exact scoring logic used for real grading
 score_submission.py, run_all.py, ...    # the grading harness
 bin/benchmark.js                        # local practice runner (npm run benchmark)
@@ -101,7 +101,7 @@ tickets each, about 16 urgent). Each batch is scored out of 10:
 | Count | 20% | X on the count line equals the number of bullets |
 
 Your score is the total across the 3 batches as a percentage. "Urgent" is
-defined by the dataset's own labels; `test_cases/challenge_1/practice.yaml`
+defined by the dataset's own labels; `test_cases/challenge_1/practice_batch.yaml`
 has 76 labeled tickets (`ground_truth.urgent_ids_definite`) you can study.
 The exact rules are in `graders/grader_challenge_1.py`.
 
