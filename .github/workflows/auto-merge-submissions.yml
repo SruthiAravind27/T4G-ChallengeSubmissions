@@ -6,7 +6,7 @@ name: Auto-merge submissions
 #   - After that: once a day at the same time.
 # A PR is only merged if every file it changes is inside ONE team folder
 # (teams/<challenge>/<team>/). Anything else gets the "needs-review" label
-# and is left for a human. A challenge_1b (pipeline) folder must also pass
+# and is left for a human. A challenge_1b or challenge_3 folder must also pass
 # validate_submission.py; if it doesn't, the PR stays open with a comment
 # giving the reason, so the team can push a fix to the same PR.
 
@@ -84,7 +84,7 @@ jobs:
               skipped=$((skipped + 1)); continue
             fi
 
-            if [[ "$folder" == teams/challenge_1b/* ]]; then
+            if [[ "$folder" == teams/challenge_1b/* || "$folder" == teams/challenge_3/* ]]; then
               sha=$(gh pr view "$pr" --json headRefOid --jq .headRefOid)
               git fetch -q origin "pull/$pr/head:pr-$pr"
               tmp=$(mktemp -d)
@@ -93,7 +93,7 @@ jobs:
                 echo "PR #$pr: $result"
                 # One comment per pushed version, not one per day.
                 if ! gh pr view "$pr" --json comments --jq '.comments[].body' | grep -q "$sha"; then
-                  gh pr comment "$pr" --body "Your pipeline wasn't merged because it failed the submission check:
+                  gh pr comment "$pr" --body "Your submission wasn't merged because it failed the submission check:
 
           > $result
 
